@@ -1,20 +1,19 @@
 package com.irynaengels.bleconnecttestapp.presentation.ui.list_screen
 
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.google.accompanist.permissions.MultiplePermissionsState
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun PermissionsRequired(onPermissionsGranted: () -> Unit) {
-    val permissionsState = rememberMultiplePermissionsState(
-        permissions = listOf(
-            android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION
-        )
-    )
-
+fun PermissionsRequired(
+    permissionsState: MultiplePermissionsState,
+    onPermissionsGranted: @Composable () -> Unit,
+    onPermissionsShowRationale: @Composable () -> Unit,
+    onPermissionsDenied: @Composable () -> Unit,
+) {
     LaunchedEffect(permissionsState) {
         permissionsState.launchMultiplePermissionRequest()
     }
@@ -23,5 +22,15 @@ fun PermissionsRequired(onPermissionsGranted: () -> Unit) {
         permissionsState.allPermissionsGranted -> {
             onPermissionsGranted()
         }
+
+        permissionsState.shouldShowRationale -> {
+            onPermissionsShowRationale()
+        }
+
+
+        else -> {
+            onPermissionsDenied()
+        }
     }
+
 }
