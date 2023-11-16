@@ -9,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -29,6 +30,9 @@ import com.irynaengels.bleconnecttestapp.R
 import com.irynaengels.bleconnecttestapp.presentation.LocalBleViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.irynaengels.bleconnecttestapp.presentation.ui.navigation.Destinations
 import com.irynaengels.bleconnecttestapp.presentation.ui.theme.PurpleCustom
@@ -78,6 +82,23 @@ fun DeviceListScreen(navController: NavController) {
                 .padding(16.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
+            if (isScanning) {
+                Text(
+                    text = "Searching for your device",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = "Click on the device to connect",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.Black,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            }
             LazyColumn(
                 modifier = Modifier.weight(1f)
             ) {

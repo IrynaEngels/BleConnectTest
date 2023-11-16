@@ -1,10 +1,12 @@
 package com.irynaengels.bleconnecttestapp.presentation.ui.list_screen
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -41,22 +43,30 @@ fun DetailItem(device: String) {
                 color = Color.Black
             )
 
-            servicesAndCharacteristics.forEach { service ->
-                Text(
-                    text = "Service UUID: ${service.uuid}",
-                    fontSize = 16.sp,
-                    color = Color.Black
-                )
-                service.characteristics.forEach { characteristic ->
-                    Text(
-                        text = "Characteristic UUID: ${characteristic.uuid} - Properties: ${characteristic.properties.joinToString()}",
-                        fontSize = 14.sp,
-                        color = Color.DarkGray
-                    )
+            Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
+                LazyColumn {
+                    servicesAndCharacteristics.forEach { service ->
+                        item {
+                            Text(
+                                text = "Service UUID: ${service.uuid}",
+                                fontSize = 16.sp,
+                                color = Color.Black
+                            )
+                            service.characteristics.forEach { characteristic ->
+                                Text(
+                                    text = "Characteristic UUID: ${characteristic.uuid} - Properties: ${characteristic.properties.joinToString()}",
+                                    fontSize = 14.sp,
+                                    color = Color.DarkGray
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+                    }
                 }
-                Spacer(modifier = Modifier.height(8.dp))
             }
+
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
+
 }
